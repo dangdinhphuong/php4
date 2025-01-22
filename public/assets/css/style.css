@@ -6105,6 +6105,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .blog__thumbnail--img {
+    height: 28rem;
     width: 100%;
     display: block
 }

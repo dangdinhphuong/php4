@@ -1,82 +1,72 @@
-@extends('client.master')
+@extends('client.pages.settings.master')
 @section('title', 'Siêu thị thực phẩm')
-@section('content')
-
-<div class="contact-form spad">
+@section('child-content')
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12" style="padding: 5%;background-color: #76717166;">
-                <div class="contact__form__title">
-                    <div class="mt-3 " style="width: 100%; height: 100px; text-align: center; display: block; " id="imgavatar1">
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" style="width: 100px; height: 100%;  border-radius: 50%; border: 2px solid #a1a1a1;" alt="{{auth()->user()->fullname}}">
+        <div class="section__heading text-center mb-40">
+            <h2 class="section__heading--maintitle">Personal information</h2>
+        </div>
+        <div class="main__contact--area position__relative">
+
+            <div class="">
+                <h3 class="contact__form--title mb-40">My information</h3>
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
                     </div>
-                    <div class="mt-3 " style="width: 100%; height: 100px; text-align: center; display: none; " id="imgavatar2">
-                        <img style="width: 100px; height: 100%;  border-radius: 50%; border: 2px solid #a1a1a1;" id="previewimgavatar" alt="">
-                    </div>
-                </div>
+                @endif
                 <form action="{{route('UpdateProfile')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 mb-5">
-                            <input type="name" name="fullname" value="{{ old('fullname', auth()->user()->fullname ?? null) }}" placeholder="Nhập tên..." require>
-                            @error('fullname')
-                            <span class="text-danger">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="contact__form--list mb-20">
+                                <label class="contact__form--label" for="input1">Full Name <span class="contact__form--label__star">*</span></label>
+                                <input class="contact__form--input" id="input1" placeholder="Your Full Name" type="text" value="{{auth()->user()->fullname}}" name="fullname">
+                                @error('fullname')
+                                <span class="text-danger">
                                 {{$message}}
                             </span>
-                            @enderror
-
+                                @enderror
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 mb-5 ">
-                            <input type="phone" name="phone" value="{{ old('phone', auth()->user()->phone ?? null) }}" placeholder="Số điện thoại..." require>
-                            @error('phone')
-                            <span class="text-danger">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="contact__form--list mb-20">
+                                <label class="contact__form--label" for="input3">Phone Number <span class="contact__form--label__star">*</span></label>
+                                <input class="contact__form--input" name="phone" id="input3" placeholder="Phone number..." type="phone" value="{{auth()->user()->phone}}">
+                                @error('phone')
+                                <span class="text-danger">
                                 {{$message}}
                             </span>
-                            @enderror
-
+                                @enderror
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 mb-5 ">
-                            <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? null) }}" placeholder="Nhập địa chỉ email..." require>
-                            @error('email')
-                            <span class="text-danger">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="contact__form--list mb-20">
+                                <label class="contact__form--label" for="input4">Email <span class="contact__form--label__star">*</span></label>
+                                <input class="contact__form--input" name="email" id="input4" placeholder="Email" value="{{auth()->user()->email}}" type="email">
+                                @error('email')
+                                <span class="text-danger">
                                 {{$message}}
                             </span>
-                            @enderror
-
+                                @enderror
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 mb-5 ">
-                            <input type="address" name="address" value="{{ old('address', auth()->user()->address ?? null) }}" placeholder="Địa chỉ..." require>
-                            @error('address')
-                            <span class="text-danger">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="contact__form--list mb-20">
+                                <label class="contact__form--label" for="input5">Address<span class="contact__form--label__star">*</span></label>
+                                <input class="contact__form--input"id="input5" placeholder="Address..." type="text" value="{{auth()->user()->address}}" name="address">
+                                @error('address_detail')
+                                <span class="text-danger">
                                 {{$message}}
                             </span>
-                            @enderror
-
-                        </div>
-                        <div class="col-lg-12 text-center mb-5">
-                            <input onchange="previewFile(this)" id="avatar_image" type="file"  name="avatar" class="form-control" require>
-                            @error('avatar')
-                            <span class="text-danger">
-                                {{$message}}
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            <button type="submit" class="site-btn">Gửi</button>
+                                @enderror
+                            </div>
                         </div>
                     </div>
+                    <button class="contact__form--btn primary__btn" type="submit">Submit Now</button>
                 </form>
             </div>
         </div>
-
     </div>
-</div>
-<!-- Contact Form End -->
-<style>
-    .contact-form form input {
-    margin-bottom: 0px !important;
-}
-</style>
 @endsection
 
 @section('javascript')

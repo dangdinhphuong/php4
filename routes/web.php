@@ -16,7 +16,6 @@ use App\Http\Controllers\Admin\ContactContrller;
 use App\Http\Controllers\Admin\OrderContrller;
 use App\Http\Controllers\Admin\BlogsController;
 use App\Http\Controllers\Admin\SessionController as AdminSessionController;
-use App\Http\Controllers\Client\ClientControllerTmp;
 use App\Http\Controllers\Client\ClientController;
 /*
 |--------------------------------------------------------------------------
@@ -141,42 +140,25 @@ Route::name('cp-admin.')->middleware('AdminLogin')->prefix('cp-admin/')->group(f
         Route::post('update/{id}', [OrderContrller::class, 'update'])->name('update')->middleware('can:SUA-DON-HANG');
         // Route::get('delete/{id}', [BlogsController::class, 'delete'])->name('delete'); // todo xóa khi ko có hóa đơn
     });
+
 });
-//ClientControllerTmp
-Route::prefix('tmp/')->group(function (){
+//ClientController
 
-    Route::get('/', [ClientController::class, 'index'])->name('home');
-    Route::get('products', [ClientController::class, 'products'])->name('products');
-    Route::get('product/{slug}', [ClientController::class, 'productDetail'])->name('product');
-    Route::get('blogs', [ClientController::class, 'blogs'])->name('blogs');
-    Route::get('lien-he', [ClientController::class, 'contact'])->name('contact');
-    Route::post('lien-he', [ClientController::class, 'sentContact'])->name('sentContact');
-    Route::get('blog/{slug}', [ClientController::class, 'blog'])->name('blog');
-    Route::get('carts', [ClientController::class, 'carts'])->middleware('clientLogin')->name('carts');
-    Route::get('profile', [ClientController::class, 'profile'])->middleware('clientLogin')->name('profileUser');
-
-    Route::post('profile', [ClientController::class, 'UpdateProfile'])->middleware('clientLogin')->name('UpdateProfile');
-    Route::get('order', [ClientController::class, 'order'])->middleware('clientLogin')->name('order');
-    Route::get('order/{id}', [ClientController::class, 'order_detail'])->middleware('clientLogin')->name('order_detail');
-    Route::post('update-carts', [ClientController::class, 'updateCarts'])->middleware('clientLogin')->name('updateCarts');
-    Route::post('checkout', [ClientController::class, 'checkout'])->middleware('clientLogin')->name('checkout');
-});
-
-Route::get('/', [ClientControllerTmp::class, 'index'])->name('home');
-Route::get('products', [ClientControllerTmp::class, 'products'])->name('products');
-Route::get('product/{slug}', [ClientControllerTmp::class, 'productDetail'])->name('product');
-Route::get('blogs', [ClientControllerTmp::class, 'blogs'])->name('blogs');
-Route::get('contact', [ClientControllerTmp::class, 'contact'])->name('contact');
-Route::post('contact', [ClientControllerTmp::class, 'sentContact'])->name('sentContact');
-Route::get('blog/{slug}', [ClientControllerTmp::class, 'blog'])->name('blog');
-Route::get('carts', [ClientControllerTmp::class, 'carts'])->middleware('clientLogin')->name('carts');
-Route::get('cp-login', [ClientControllerTmp::class, 'login'])->name('login');
+Route::get('/', [ClientController::class, 'index'])->name('home');
+Route::get('products', [ClientController::class, 'products'])->name('products');
+Route::get('product/{slug}', [ClientController::class, 'productDetail'])->name('product');
+Route::get('blogs', [ClientController::class, 'blogs'])->name('blogs');
+Route::get('contact', [ClientController::class, 'contact'])->name('contact');
+Route::post('contact', [ClientController::class, 'sentContact'])->name('sentContact');
+Route::get('blog/{slug}', [ClientController::class, 'blog'])->name('blog');
+Route::get('carts', [ClientController::class, 'carts'])->middleware('clientLogin')->name('carts');
+Route::get('cp-login', [ClientController::class, 'login'])->name('login');
 // check login
 
-Route::get('profile', [ClientControllerTmp::class, 'profile'])->middleware('clientLogin')->name('profile');
-Route::post('profile', [ClientControllerTmp::class, 'UpdateProfile'])->middleware('clientLogin')->name('UpdateProfile');
-Route::get('order', [ClientControllerTmp::class, 'order'])->middleware('clientLogin')->name('order');
-Route::get('order/{id}', [ClientControllerTmp::class, 'order_detail'])->middleware('clientLogin')->name('order_detail');
+Route::get('profile', [ClientController::class, 'profile'])->middleware('clientLogin')->name('profile');
+Route::post('profile', [ClientController::class, 'UpdateProfile'])->middleware('clientLogin')->name('UpdateProfile');
+Route::get('order', [ClientController::class, 'order'])->middleware('clientLogin')->name('order');
+Route::get('order/{id}', [ClientController::class, 'order_detail'])->middleware('clientLogin')->name('order_detail');
 Route::post('update-carts', [ClientController::class, 'updateCarts'])->middleware('clientLogin')->name('updateCarts');
 Route::post('checkout', [ClientController::class, 'checkout'])->middleware('clientLogin')->name('checkout');
 

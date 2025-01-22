@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use GuzzleHttp\Handler\Proxy;
 
+
 class ProductController extends Controller
 {
     public function index(Request $request)
@@ -79,8 +80,8 @@ class ProductController extends Controller
         $this->validate(
             request(),
             [
-                'namePro' => 'required|min:3|max:100|unique:products,namePro,' . $Product->id,
-                'slug' => 'required|min:3|max:100|unique:products,slug,' . $Product->id,
+                'namePro' => 'required|unique:products,namePro,' . $Product->id,
+                'slug' => 'required|unique:products,slug,' . $Product->id,
                 'image' => 'mimes:jpg,bmp,png|max:2048',
                 'quantity' => 'required|numeric|min:0',
                 'price' => 'required|numeric|min:1',
@@ -115,7 +116,7 @@ class ProductController extends Controller
             return redirect()->route('cp-admin.products.index')->with('message', 'Cập nhật sản phẩm thành công');
         } catch (Exception $exception) {
             DB::rollBack();
-            Log::error('message :', $exception->getMessage() . '--line :' . $exception->getLine());
+
             if (file_exists('storage/' . $pathAvatar)) {
                 unlink('storage/' . $pathAvatar);
             }
@@ -125,7 +126,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         $Product = Product::find($id);
-        
+
         if ($Product) {
             if (file_exists('storage/' . $Product->image)) {
                 unlink('storage/' . $Product->image);

@@ -48,7 +48,7 @@ class ClientController extends Controller
         $products = Product::filter(array_merge(request(['search', 'min', 'max', 'sort']), ['categories_slug' => $categories_slug]))
             ->where('status', 1)
             // ->orderBy('id', 'DESC')
-            ->Paginate(9);
+            ->Paginate(16);
 
         $category = $this->categories->load('products');
         return view('client.pages.products', compact('category', 'products', 'categories_slug'));
@@ -116,13 +116,13 @@ class ClientController extends Controller
             ]);
         }
         $quantity = request(['quantity']) ? (int)request()->quantity : 1;
-        if (!$Product) { // kiểm tra xem sản phẩm có tồn tại 
+        if (!$Product) { // kiểm tra xem sản phẩm có tồn tại
             return response()->json([
                 'message' => "Không tìm thấy sản phẩm",
                 'status' => "error"
             ], $status = 401);
         }
-        if ($Product->quantity < (int)request()->quantity) { // kiểm tra xem sản phẩm còn đủ số lượng hàng để mua 
+        if ($Product->quantity < (int)request()->quantity) { // kiểm tra xem sản phẩm còn đủ số lượng hàng để mua
             return response()->json([
                 'message' => "Sản phẩm hiện tại không còn đủ so với số lượng mua yêu cầu",
                 'status' => "error"
@@ -398,5 +398,9 @@ class ClientController extends Controller
         $data['avatar'] = $pathAvatar;
         $user = User::find(auth()->user()->id)->update($data);
         return redirect()->back()->with('message', 'Cập nhật thông tin thành công');
+    }
+    public function login()
+    {
+        return view('client.pages.auth.login');
     }
 }

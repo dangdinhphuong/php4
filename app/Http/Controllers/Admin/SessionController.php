@@ -18,7 +18,7 @@ class SessionController extends Controller
 
     public function create()
     {
-        return view('client2.pages.auth.login');
+        return view('client.pages.auth.login');
     }
     public  function store()
     {
