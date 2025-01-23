@@ -6,6 +6,13 @@
     </style>
 @endsection
 @section('content')
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Sản phẩm</h1>
         <a href="{{route('cp-admin.products.index')}}"
