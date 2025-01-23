@@ -29,23 +29,28 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true"
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-list"></i>
             <span>Sản phẩm</span>
         </a>
         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-LOAI-SAN-PHAM')
-                <h6 class="collapse-header">Danh mục:</h6>
-                <a class="collapse-item" href="{{route('cp-admin.category.index')}}">Danh mục sản phẩm</a>
+                    <h6 class="collapse-header">Danh mục:</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.category.index')}}">Danh mục sản phẩm</a>
                 @endcan
                 @can('XEM-SAN-PHAM')
-                <h6 class="collapse-header"> Sản phẩm :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.products.index')}}">Danh sách sản phẩm</a>
+                    <h6 class="collapse-header"> Sản phẩm :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.products.index')}}">Danh sách sản phẩm</a>
                 @endcan
                 @can('XEM-NHA-PHAN-PHOI')
-                <h6 class="collapse-header"> Nhà phân phối :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.supplier.index')}}">Danh sách nhà phân phối</a>
+                    <h6 class="collapse-header"> Nhà phân phối :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.supplier.index')}}">Danh sách nhà phân phối</a>
+                @endcan
+                @can('XEM-SAN-PHAM')
+                    <h6 class="collapse-header"> Slider :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.slider.index')}}">Danh sách slider</a>
                 @endcan
             </div>
         </div>
@@ -53,48 +58,51 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages5" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages5" aria-expanded="true"
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-list"></i>
             <span>Kinh doanh</span>
         </a>
         <div id="collapsePages5" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-DON-HANG')
-                <h6 class="collapse-header"> Đơn hàng :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.orders.index')}}">Danh sách đơn hàng</a>
+                    <h6 class="collapse-header"> Đơn hàng :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.orders.index')}}">Danh sách đơn hàng</a>
                 @endcan
             </div>
         </div>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true"
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-list"></i>
             <span>Bài viết</span>
         </a>
         <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-LOAI-BAI-VIET')
-                <h6 class="collapse-header"> Loại bài viết :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.cate_blog.index')}}">Danh sách loại bài viết</a>
+                    <h6 class="collapse-header"> Loại bài viết :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.cate_blog.index')}}">Danh sách loại bài viết</a>
                 @endcan
                 @can('XEM-BAI-VIET')
-                <h6 class="collapse-header"> Bài viết :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.blogs.index')}}">Danh sách bài viết</a>
+                    <h6 class="collapse-header"> Bài viết :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.blogs.index')}}">Danh sách bài viết</a>
                 @endcan
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages41" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages41"
+           aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-list"></i>
             <span>Liên hệ</span>
         </a>
         <div id="collapsePages41" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-LIEN-HE')
-                <h6 class="collapse-header"> Liên hệ :</h6>
-                <a class="collapse-item" href="{{route('cp-admin.contact.index')}}">Danh sách liên hệ</a>
+                    <h6 class="collapse-header"> Liên hệ :</h6>
+                    <a class="collapse-item" href="{{route('cp-admin.contact.index')}}">Danh sách liên hệ</a>
                 @endcan
             </div>
         </div>
@@ -109,7 +117,8 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-user"></i>
             <span>Khách hàng</span>
         </a>
@@ -117,17 +126,18 @@
 
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-NHOM-KHACH-HANG')
-                <a class="collapse-item" href="{{route('cp-admin.groups.index')}}">Nhóm khách hàng</a>
+                    <a class="collapse-item" href="{{route('cp-admin.groups.index')}}">Nhóm khách hàng</a>
                 @endcan
                 @can('XEM-KHACH-HANG')
-                <a class="collapse-item" href="{{route('cp-admin.customers.index')}}">Danh sách khách hàng</a>
+                    <a class="collapse-item" href="{{route('cp-admin.customers.index')}}">Danh sách khách hàng</a>
                 @endcan
             </div>
         </div>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#nhan-vien" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#nhan-vien" aria-expanded="true"
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-user"></i>
             <span>Nhân viên</span>
         </a>
@@ -135,10 +145,10 @@
 
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('XEM-CHUC-VU')
-                <a class="collapse-item" href="{{route('cp-admin.user.role.index')}}">Chức vụ</a>
+                    <a class="collapse-item" href="{{route('cp-admin.user.role.index')}}">Chức vụ</a>
                 @endcan
                 @can('XEM-NHAN-VIEN')
-                <a class="collapse-item" href="{{route('cp-admin.user.index')}}">Danh sách nhân viên</a>
+                    <a class="collapse-item" href="{{route('cp-admin.user.index')}}">Danh sách nhân viên</a>
                 @endcan
             </div>
         </div>
@@ -152,7 +162,6 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 
 
 </ul>

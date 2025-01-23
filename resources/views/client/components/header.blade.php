@@ -20,6 +20,7 @@
                     <form class="d-flex header__search--form" action="{{route('products')}}">
                         <div class="header__select--categories select">
                             <select class="header__select--inner" onchange="if (this.value) window.location.href = this.value;">
+                                <option value="">Select product type</option>
                                 @foreach($categories as $category)
                                     <option value="{{ route('products') . '?slug_cate=' . $category->slug }}" {{ !empty(request('slug_cate')) && request('slug_cate') == $category->slug ? 'selected' :  ''  }}>
                                         {{ $category->nameCate }}

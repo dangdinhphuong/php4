@@ -13,7 +13,7 @@ use App\Models\Origin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use GuzzleHttp\Handler\Proxy;
+use App\Models\ProductImage;
 
 
 class ProductController extends Controller
@@ -40,25 +40,58 @@ class ProductController extends Controller
     }
     public function store(StoreProductRequest $request)
     {
-        $pathAvatar = $request->file('image')->store('public/images/products');
-        $pathAvatar = str_replace("public/", "", $pathAvatar);
+        $pathAvatar = null;
+
         try {
+            // Bắt đầu transaction
             DB::beginTransaction();
-            $data = request(['namePro', 'quantity', 'slug', 'price', 'discounts', 'Description', 'status', 'category_id', 'supplier_id', 'origin_id']);
+
+            // Lưu ảnh đại diện
+            if ($request->hasFile('image')) {
+                $pathAvatar = $request->file('image')->store('public/images/products');
+                $pathAvatar = str_replace("public/", "", $pathAvatar);
+            }
+
+            // Lưu dữ liệu sản phẩm
+            $data = $request->only(['namePro', 'quantity', 'slug', 'price', 'discounts', 'Description', 'status', 'category_id', 'supplier_id', 'origin_id']);
             $data['users_id'] = auth()->user()->id;
-            $data['image'] = $pathAvatar;
-            Product::create($data);
+            $data['image'] = $pathAvatar; // Đường dẫn ảnh đại diện
+            $product = Product::create($data);
+
+            // Lưu các ảnh khác
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $imagePath = $image->store('public/images/products');
+                    $imagePath = str_replace("public/", "", $imagePath);
+
+                    // Lưu ảnh vào bảng `product_images`
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image_path' => $imagePath,
+                    ]);
+                }
+            }
+
+            // Hoàn tất transaction
             DB::commit();
-            return redirect()->route('cp-admin.products.index')->with('message', 'Thêm sản phẩm thành công !');
+            return redirect()->route('cp-admin.products.index')->with('message', 'Thêm sản phẩm thành công!');
         } catch (Exception $exception) {
+            // Rollback transaction khi có lỗi
             DB::rollBack();
-            Log::error('message :', $exception->getMessage() . '--line :' . $exception->getLine());
-            if (file_exists('storage/' . $pathAvatar)) {
+            Log::error('Error:', [
+                'message' => $exception->getMessage(),
+                'line' => $exception->getLine(),
+            ]);
+
+            // Xóa ảnh đại diện nếu đã lưu nhưng xảy ra lỗi
+            if ($pathAvatar && file_exists('storage/' . $pathAvatar)) {
                 unlink('storage/' . $pathAvatar);
             }
-            return redirect()->route('cp-admin.products.index')->with('error', 'Thêm sản phẩm thất bại !');
+
+            return redirect()->route('cp-admin.products.index')->with('error', 'Thêm sản phẩm thất bại!');
         }
     }
+
     public function edit($id)
     {
         $Product = Product::find($id);
@@ -71,29 +104,32 @@ class ProductController extends Controller
         $origin = Origin::all();
         return view('admin.pages.product.edit', compact('Product', 'supplier', 'categoryAll', 'origin'));
     }
+
     public function update(Request $request, $id)
     {
         $Product = Product::find($id);
-        if(!$Product){
+        if (!$Product) {
             return redirect()->back();
         }
+
         $this->validate(
-            request(),
+            $request,
             [
                 'namePro' => 'required|unique:products,namePro,' . $Product->id,
                 'slug' => 'required|unique:products,slug,' . $Product->id,
                 'image' => 'mimes:jpg,bmp,png|max:2048',
+                'images.*' => 'mimes:jpg,bmp,png|max:2048', // Validate cho ảnh nhiều
                 'quantity' => 'required|numeric|min:0',
                 'price' => 'required|numeric|min:1',
                 'discounts' => 'required|numeric|min:0|max:100',
                 'status' => 'required|numeric|min:0|max:1',
                 'category_id' => 'required|numeric|min:1',
                 'supplier_id' => 'required|numeric|min:1',
-                'origin_id' => 'required|numeric|min:1'
+                'origin_id' => 'required|numeric|min:1',
             ]
         );
-        //dd($request->all());
 
+        // Xử lý ảnh đại diện
         if ($request->file('image') != null) {
             if (file_exists('storage/' . $Product->image)) {
                 unlink('storage/' . $Product->image);
@@ -104,25 +140,61 @@ class ProductController extends Controller
             $pathAvatar = $Product->image;
         }
 
+        // Xử lý ảnh nhiều
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('public/images/products');
+                $imagePaths[] = str_replace("public/", "", $path);
+            }
+        }
+
         try {
             DB::beginTransaction();
 
-            $data = request(['namePro', 'quantity', 'slug', 'price', 'discounts', 'Description', 'status', 'category_id', 'supplier_id', 'origin_id']);
+            // Cập nhật thông tin sản phẩm
+            $data = $request->only(['namePro', 'quantity', 'slug', 'price', 'discounts', 'Description', 'status', 'category_id', 'supplier_id', 'origin_id']);
             $data['users_id'] = auth()->user()->id;
             $data['image'] = $pathAvatar;
 
             $Product->update($data);
+
+            // Xóa các ảnh cũ trong bảng `images` nếu cần
+            foreach ($Product->images as $image) {
+                if (file_exists('storage/' . $image->image_path) && !empty($image->image_path)) {
+                    unlink('storage/' . $image->image_path);
+                }
+                $image->delete();
+            }
+
+            // Lưu ảnh mới vào bảng `product_images`
+            foreach ($imagePaths as $imagePath) {
+                ProductImage::create([
+                    'product_id' => $Product->id,
+                    'image_path' => $imagePath,
+                ]);
+            }
+
             DB::commit();
             return redirect()->route('cp-admin.products.index')->with('message', 'Cập nhật sản phẩm thành công');
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             DB::rollBack();
 
-            if (file_exists('storage/' . $pathAvatar)) {
+            // Xóa ảnh vừa tải lên nếu có lỗi
+            if (isset($pathAvatar) && file_exists('storage/' . $pathAvatar)) {
                 unlink('storage/' . $pathAvatar);
             }
-            return redirect()->route('cp-admin.products.index')->with('error', 'Sửa sản phẩm thất bại !');
+            foreach ($imagePaths as $path) {
+                if (file_exists('storage/' . $path)) {
+                    unlink('storage/' . $path);
+                }
+            }
+
+            return redirect()->route('cp-admin.products.index')->with('error', 'Sửa sản phẩm thất bại!');
         }
     }
+
+
     public function delete($id)
     {
         $Product = Product::find($id);

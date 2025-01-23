@@ -38,56 +38,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @foreach($Product->images as $image)
                                     <div class="swiper-slide">
                                         <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('assets/img/product/big-product1.jpg')}}"><img class="product__media--preview__items--img" src="{{asset('assets/img/product/big-product1.jpg')}}" alt="product-media-img"></a>
+                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{ asset('storage/' . ($image->image_path ?? '')) }}"><img class="product__media--preview__items--img" src="{{ asset('storage/' . ($image->image_path ?? '')) }}" alt="product-media-img"></a>
                                             <div class="product__media--view__icon">
-                                                <a class="product__media--view__icon--link glightbox" href="{{asset('assets/img/product/big-product1.jpg')}}" data-gallery="product-media-preview">
+                                                <a class="product__media--view__icon--link glightbox" href="{{ asset('storage/' . ($image->image_path ?? '')) }}" data-gallery="product-media-preview">
                                                     <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('assets/img/product/big-product3.jpg')}}"><img class="product__media--preview__items--img" src="{{asset('assets/img/product/big-product3.jpg')}}" alt="product-media-img"></a>
-                                            <div class="product__media--view__icon">
-                                                <a class="product__media--view__icon--link glightbox" href="{{asset('assets/img/product/big-product3.jpg')}}" data-gallery="product-media-preview">
-                                                    <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('assets/img/product/big-product4.jpg')}}"><img class="product__media--preview__items--img" src="{{asset('assets/img/product/big-product4.jpg')}}" alt="product-media-img"></a>
-                                            <div class="product__media--view__icon">
-                                                <a class="product__media--view__icon--link glightbox" href="{{asset('assets/img/product/big-product4.jpg')}}" data-gallery="product-media-preview">
-                                                    <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('assets/img/product/big-product5.jpg')}}"><img class="product__media--preview__items--img" src="{{asset('assets/img/product/big-product5.jpg')}}" alt="product-media-img"></a>
-                                            <div class="product__media--view__icon">
-                                                <a class="product__media--view__icon--link glightbox" href="{{asset('assets/img/product/big-product5.jpg')}}" data-gallery="product-media-preview">
-                                                    <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--preview__items">
-                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="{{asset('assets/img/product/big-product6.jpg')}}"><img class="product__media--preview__items--img" src="{{asset('assets/img/product/big-product6.jpg')}}" alt="product-media-img"></a>
-                                            <div class="product__media--view__icon">
-                                                <a class="product__media--view__icon--link glightbox" href="{{asset('assets/img/product/big-product6.jpg')}}" data-gallery="product-media-preview">
-                                                    <svg class="product__media--view__icon--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="product__media--nav swiper">
@@ -97,31 +59,13 @@
                                             <img class="product__media--nav__items--img" src="{{asset('storage/' .$Product->image)}}" alt="product-nav-img">
                                         </div>
                                     </div>
+                                    @foreach($Product->images as $image)
                                     <div class="swiper-slide">
                                         <div class="product__media--nav__items">
-                                            <img class="product__media--nav__items--img" src="{{asset('assets/img/product/small-product8.png')}}" alt="product-nav-img">
+                                            <img class="product__media--nav__items--img" src="{{ asset('storage/' . ($image->image_path ?? '')) }}" alt="product-nav-img">
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--nav__items">
-                                            <img class="product__media--nav__items--img" src="{{asset('assets/img/product/small-product9.png')}}" alt="product-nav-img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--nav__items">
-                                            <img class="product__media--nav__items--img" src="{{asset('assets/img/product/small-product10.png')}}" alt="product-nav-img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--nav__items">
-                                            <img class="product__media--nav__items--img" src="{{asset('assets/img/product/small-product11.png')}}" alt="product-nav-img">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product__media--nav__items">
-                                            <img class="product__media--nav__items--img" src="{{asset('assets/img/product/small-product12.png')}}" alt="product-nav-img">
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                                 <div class="swiper__nav--btn swiper-button-next"></div>
                                 <div class="swiper__nav--btn swiper-button-prev"></div>
@@ -131,7 +75,7 @@
                     <div class="col">
                         <div class="product__details--info">
                             <form action="#">
-                                <h2 class="product__details--info__title mb-15">{{$Product->namePro}}</h2>
+                                <h2 class="product__details--info__title mb-15">{{ \Illuminate\Support\Str::limit($Product->namePro, 30, '...') }}</h2>
                                 <div class="product__details--info__price mb-10 p-2" style="background-color: var(--secondary-color);     border-radius: 5px;">
 
                                     @if($Product->discounts > 0)

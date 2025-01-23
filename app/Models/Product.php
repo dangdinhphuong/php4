@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $table = 'products';
     protected $fillable = [
         'namePro',
@@ -25,14 +26,22 @@ class Product extends Model
         'origin_id'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
     public function origin()
     {
         return $this->belongsTo(Origin::class, 'origin_id');
     }
+
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
@@ -42,18 +51,20 @@ class Product extends Model
     {
         return $this->hasMany(Sale::class, 'sale_id');
     }
+
     public function User()
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+
     public function scopeFilter($query, array $filters)
     {
-        // lọc cho người dùng  
+        // lọc cho người dùng
         $query->when($filters['categories_slug'] ?? false, function ($query, $categories_slug) {
             $query->where('category_id', $categories_slug->id);
         });
         $query->when($filters['min'] ?? false, function ($query, $min) {
-            //    lọc sản phẩm có giá tối thiểu 
+            //    lọc sản phẩm có giá tối thiểu
             $query->where('price', '>=', $min);
         });
         $query->when($filters['max'] ?? false, function ($query, $max) {
@@ -67,8 +78,8 @@ class Product extends Model
             }
         });
 
-        
-        // lọc cho admin    
+
+        // lọc cho admin
         $query->when($filters['category_id'] ?? false, function ($query, $category_id) {
             $query->where('category_id', $category_id);
         });

@@ -162,7 +162,7 @@
                                                                      src="{{asset('storage/' .$product->image)}}"
                                                                      alt="product-img">
                                                                 <img class="product__items--img product__secondary--img"
-                                                                     src="{{asset('assets/img/product/product15.png')}}"
+                                                                     src="{{ asset('storage/' . ($product->images[0]->image_path ?? '')) }}"
                                                                      alt="product-img">
                                                             </a>
                                                             <div class="product__badge">
@@ -173,7 +173,7 @@
                                                             <span
                                                                 class="product__items--content__subtitle"> </span>
                                                             <h4 class="product__items--content__title"><a
-                                                                    href="{{ route('product',['slug'=>$product->slug]) }}">{{$product->namePro}}</a>
+                                                                    href="{{ route('product',['slug'=>$product->slug]) }}">{{ \Illuminate\Support\Str::limit($product->namePro, 50, '...') }}</a>
                                                             </h4>
                                                             <div class="product__items--price">
                                                                 @if($product->discounts > 0)

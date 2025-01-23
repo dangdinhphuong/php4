@@ -173,10 +173,10 @@
 
                                         <ul class="d-flex justify-content-between">
                                             <li>
-                                                <button class="cart__summary--footer__btn primary__btn cart"
+                                                <div class="cart__summary--footer__btn primary__btn cart"
                                                         {{ $carts->count() <=0 ? "disabled" : "" }} id="submit-updateCarts">
                                                     Update Cart
-                                                </button>
+                                                </div>
                                             </li>
                                             <li>
                                                 <button class="cart__summary--footer__btn primary__btn checkout"

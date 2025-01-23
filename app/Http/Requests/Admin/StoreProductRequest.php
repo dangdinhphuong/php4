@@ -27,6 +27,7 @@ class StoreProductRequest extends FormRequest
              'namePro'=>'required|unique:products,namePro',
              'slug'=>'required|unique:products,slug',
              'image'=>'required|mimes:jpg,bmp,png|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate từng ảnh
              'quantity' => 'required|numeric|min:0',
              'price' => 'required|numeric|min:1',
              'discounts' => 'required|numeric|min:0|max:100',

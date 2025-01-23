@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\CategoriBlogController;
 use App\Http\Controllers\Admin\ContactContrller;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\OrderContrller;
 use App\Http\Controllers\Admin\BlogsController;
 use App\Http\Controllers\Admin\SessionController as AdminSessionController;
@@ -140,9 +141,17 @@ Route::name('cp-admin.')->middleware('AdminLogin')->prefix('cp-admin/')->group(f
         Route::post('update/{id}', [OrderContrller::class, 'update'])->name('update')->middleware('can:SUA-DON-HANG');
         // Route::get('delete/{id}', [BlogsController::class, 'delete'])->name('delete'); // todo xóa khi ko có hóa đơn
     });
+    Route::prefix('slider')->group(function () {
+        Route::get('', [SliderController::class, 'index'])->name('slider.index');
+        Route::get('create', [SliderController::class, 'create'])->name('slider.create');
+        Route::get('edit/{id}', [SliderController::class, 'edit'])->name('slider.edit');
+        Route::get('destroy/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
+        Route::post('store', [SliderController::class, 'store'])->name('slider.store');
+        Route::post('update/{id}', [SliderController::class, 'update'])->name('slider.update');
+    });
 
 });
-//ClientController
+//ClientController cp-admin
 
 Route::get('/', [ClientController::class, 'index'])->name('home');
 Route::get('products', [ClientController::class, 'products'])->name('products');

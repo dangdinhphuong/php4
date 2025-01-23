@@ -14,6 +14,7 @@ use App\Models\contact;
 use App\Models\CategoryBlog;
 use App\Models\PasswordReset;
 use App\Models\User;
+use App\Models\Slider;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\checkoutRequest;
 use App\Common\Constants;
@@ -33,9 +34,10 @@ class ClientController extends Controller
     {
 
         $blogs = Blogs::where('status', 1)->orderBy('id', 'DESC')->get();
+        $sliders = Slider::all();
         // dd($this->currency_format(15656262));
         $category = $this->categories;
-        return view('client.pages.home', compact('category', 'blogs'));
+        return view('client.pages.home', compact('category', 'blogs','sliders'));
     }
     public function products(Request $request)
     {
@@ -235,13 +237,6 @@ class ClientController extends Controller
             [
                 'name' => 'required|min:3|max:100',
                 'email' => 'required|email|unique:users,email',
-            ],
-            [
-                'name.required' => 'Bạn chưa nhập họ và tên',
-                'name.min' => 'Họ và tên phải có Độ dài  từ 3 đến 100 ký tự',
-                'name.max' => 'Họ và tên phải có Độ dài  từ 3 đến 100 ký tự',
-                'email.required' => 'Bạn chưa nhập email',
-                'email.email' => 'Email không đúng định dạng',
             ]
         );
         contact::create(request()->all());
@@ -253,14 +248,6 @@ class ClientController extends Controller
             'email' => 'email|required|unique:users,email',
             'password' => 'confirmed|min:6|required',
             // 'password_confirmation' => 'confirmed'
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ e-mail !!',
-            'email.unique' => 'Email đã tồn tại trong hệ thống!! Nếu bạn đã có tài khoản, Xin vui lòng đăng nhập',
-            'password.required' => "Vui lòng nhập mật khẩu .",
-            'email.email' => 'Email không hợp lệ, Xin vui lòng thử lại!!',
-            'password.min' => "Mật khẩu phải có ít nhất 6 ký tự.",
-            'password.confirmed' => "Mật khẩu xác nhận không đúng.",
-            // 'password_confirmation.confirmed' => 'Mật khẩu xác nhận không đúng'
         ]);
         $data =  [
             'password' => bcrypt(request('password')),
@@ -300,11 +287,7 @@ class ClientController extends Controller
     public function SentPassword()
     {
         request()->validate([
-            'email' => 'email|required|exists:users,email',
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ e-mail !!',
-            'email.email' => 'Email không hợp lệ, Xin vui lòng thử lại!!',
-            'email.exists' => 'Email chưa được đăng ký!!'
+            'email' => 'email|required|exists:users,email'
         ]);
         $PasswordReset = User::where('email', request('email'))->first();
         $data['token'] = bcrypt(request('email'));
@@ -329,14 +312,6 @@ class ClientController extends Controller
         request()->validate([
             'email' => 'email|required|exists:users,email',
             'password' => 'confirmed|min:6|required',
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ e-mail !!',
-            'email.exists' => 'Email chưa được đăng ký!!',
-            'password.required' => "Vui lòng nhập mật khẩu .",
-            'email.email' => 'Email không hợp lệ, Xin vui lòng thử lại!!',
-            'password.min' => "Mật khẩu phải có ít nhất 6 ký tự.",
-            'password.confirmed' => "Mật khẩu xác nhận không đúng.",
-
         ]);
         $PasswordReset = PasswordReset::where('email', request('email'))->where('token', request('token'))->first();
         // dd( $PasswordReset,$token);
@@ -365,25 +340,6 @@ class ClientController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
             'phone' => 'required|numeric|digits_between:10,12|unique:users,phone,' . auth()->user()->id,
             'address' => 'required|min:3|max:200',
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ e-mail !!',
-            'email.unique' => 'Email đã tồn tại trong hệ thống!!',
-            'email.email' => 'Email không hợp lệ, Xin vui lòng thử lại!!',
-            'fullname.required' => 'Bạn chưa nhập họ và tên',
-            'phone.unique' => 'Số điện thoại đã được sử dụng',
-            'fullname.min' => 'Họ và tên phải có Độ dài  từ 3 đến 100 ký tự',
-            'fullname.max' => 'Họ và tên phải có Độ dài  từ 3 đến 100 ký tự',
-            'avatar.mimes' => 'Hình đại diện phải là tệp thuộc loại: image / jpeg, image / png.',
-            'avatar.image' => 'Hình đại diện phải là tệp thuộc loại: image / jpeg, image / png.',
-            'avatar.max' => 'avatar dụng lượng tối đa 2048mb',
-            'phone.required' => 'Bạn chưa nhập số điện thoại',
-            'phone.digits_between' => 'Độ dài số điện thoại không hợp lệ',
-            'phone.numeric' => 'Số điện thoại không hợp lệ',
-            'address.required' => 'Bạn chưa nhập địa chỉ',
-            'address.unique' => 'Địa chỉ không được trùng',
-            'address.min' => 'Địa chỉ phải có Độ dài  từ 3 đến 200 ký tự',
-            'address.max' => 'Địa chỉ phải có Độ dài  từ 3 đến 200 ký tự',
-
         ]);
         if ($request->file('avatar') != null) {
             if (file_exists('storage/' . auth()->user()->avatar)) {

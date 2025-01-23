@@ -4320,7 +4320,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .product__items--img {
     display: block;
-    width: 100%
+    width: 100%;
+    height: 20rem;
 }
 
 .product__items--action__list {
@@ -9206,7 +9207,8 @@ input.quickview__value--number {
 
 .product__media--preview__items--img {
     width: 100%;
-    display: block
+    display: block;
+    height: 60rem;
 }
 
 .product__media--view__icon {
@@ -9255,7 +9257,8 @@ input.quickview__value--number {
 .product__media--nav__items--img {
     width: 100%;
     display: block;
-    cursor: pointer
+    cursor: pointer;
+    height: 9rem;
 }
 
 @media only screen and (min-width: 768px) {
