@@ -18,12 +18,12 @@
                                     <div class="row row-cols-1">
                                         <div class="col">
                                             <div class="slider__content">
-                                                <p class="slider__content--desc desc1 mb-15"><img
-                                                        class="slider__text--shape__icon"
-                                                        src="assets/img/icon/text-shape-icon.png" alt="text-shape-icon">
-                                                    New Product</p>
-                                                <h2 class="slider__content--maintitle h1">{{ $slider->caption }}</h2>
-                                                <p class="slider__content--desc desc2 d-sm-2-none mb-40">{{ $slider->caption }}</p>
+{{--                                                <p class="slider__content--desc desc1 mb-15"><img--}}
+{{--                                                        class="slider__text--shape__icon"--}}
+{{--                                                        src="assets/img/icon/text-shape-icon.png" alt="text-shape-icon">--}}
+{{--                                                    New Product</p>--}}
+                                                <h2 class="slider__content--maintitle h1"></h2>
+                                                <p class="slider__content--desc desc2 d-sm-2-none mb-40"></p>
                                                 <a class="slider__btn primary__btn" href="{{ route('product',['slug'=>$slider->link]) }}">Show Collection
                                                     <svg class="primary__btn--arrow__icon"
                                                          xmlns="http://www.w3.org/2000/svg" width="20.2" height="12.2"
@@ -86,7 +86,7 @@
                                                                      src="{{asset('storage/' .$product->image)}}"
                                                                      alt="product-img">
                                                                 <img class="product__items--img product__secondary--img"
-                                                                     src="{{asset('storage/' .(!empty($product->images[0]) ? $product->images[0]: ''))}}"
+                                                                     src="{{asset('storage/' .(!empty($product->images[0]->image_path) ? $product->images[0]->image_path: ''))}}"
                                                                      alt="product-img">
                                                             </a>
                                                             <div class="product__badge">
@@ -97,7 +97,7 @@
                                                             <span
                                                                 class="product__items--content__subtitle"> {{$category[$i]->nameCate}}</span>
                                                             <h4 class="product__items--content__title"><a
-                                                                    href="{{ route('product',['slug'=>$product->slug]) }}">{{$product->namePro}}</a>
+                                                                    href="{{ route('product',['slug'=>$product->slug]) }}">{{ \Illuminate\Support\Str::limit($product->namePro, 30, '...') }}</a>
                                                             </h4>
                                                             <div class="product__items--price">
                                                                 @if($product->discounts > 0)
@@ -239,7 +239,7 @@
                                     adipisicing elit, <br> sed do eiusmod tempor incididunt ut labore </p>
                                 <div class="deals__banner--countdown d-flex"
                                      data-countdown="Sep 30, 2022 00:00:00"></div>
-                                <a class="primary__btn" href="shop.html">Show Collection
+                                <a class="primary__btn" href="">Show Collection
                                     <svg class="primary__btn--arrow__icon" xmlns="http://www.w3.org/2000/svg"
                                          width="20.2" height="12.2" viewBox="0 0 6.2 6.2">
                                         <path
@@ -316,19 +316,20 @@
                                              src="{{asset('storage/' .$product->image)}}"
                                              alt="product-img">
                                         <img class="product__items--img product__secondary--img"
-                                             src="{{asset('storage/' .(!empty($product->images[0]) ? $product->images[0]: ''))}}"
+                                             src="{{asset('storage/' .(!empty($product->images[0]->image_path) ? $product->images[0]->image_path: ''))}}"
                                              alt="product-img">
                                     </a>
                                     <div class="product__badge">
                                         <span class="product__badge--items sale">Sale</span>
                                     </div>
                                 </div>
-                                <div class="product__items--content">
+
+                                    <div class="product__items--content">
                                                             <span
-                                                                class="product__items--content__subtitle"> {{$category[4]->nameCate}}</span>
-                                    <h4 class="product__items--content__title"><a
-                                            href="{{ route('product',['slug'=>$product->slug]) }}">{{$product->namePro}}</a>
-                                    </h4>
+                                                                class="product__items--content__subtitle"> {{$category[4]->nameCate ?? ''}}</span>
+                                        <h4 class="product__items--content__title"><a
+                                                href="{{ route('product',['slug'=>$product->slug]) }}">{{ \Illuminate\Support\Str::limit($product->namePro, 30, '...') }}</a>
+                                        </h4>
                                     <div class="product__items--price">
                                         @if($product->discounts > 0)
                                             <span
@@ -460,7 +461,7 @@
                 <div class="row row-cols-md-2 row-cols-1 mb--n28">
                     <div class="col mb-28">
                         <div class="banner__items position__relative">
-                            <a class="banner__items--thumbnail " href="shop.html"><img
+                            <a class="banner__items--thumbnail " href=""><img
                                     class="banner__items--thumbnail__img banner__img--max__height"
                                     src="assets/img/banner/banner5.png" alt="banner-img">
                                 <div class="banner__items--content">
@@ -474,7 +475,7 @@
                     </div>
                     <div class="col mb-28">
                         <div class="banner__items position__relative">
-                            <a class="banner__items--thumbnail " href="shop.html"><img
+                            <a class="banner__items--thumbnail " href=""><img
                                     class="banner__items--thumbnail__img banner__img--max__height"
                                     src="assets/img/banner/banner6.png" alt="banner-img">
                                 <div class="banner__items--content">
@@ -497,7 +498,7 @@
                 <div class="row row-cols-1">
                     <div class="col">
                         <div class="banner__section--inner position__relative">
-                            <a class="banner__items--thumbnail display-block" href="shop.html"><img
+                            <a class="banner__items--thumbnail display-block" href=""><img
                                     class="banner__items--thumbnail__img banner__img--height__md display-block"
                                     src="assets/img/banner/banner-bg2.png" alt="banner-img">
                                 <div class="banner__content--style2">
@@ -534,7 +535,7 @@
                         <div class="swiper-slide">
                             <div class="blog__items">
                                 <div class="blog__thumbnail">
-                                    <a class="blog__thumbnail--link" href="blog-details.html"><img
+                                    <a class="blog__thumbnail--link" href=""><img
                                             class="blog__thumbnail--img" src="{{asset('storage/' .$blog->image)}}" alt="{{ $blog->name_blog }}"></a>
                                 </div>
                                 <div class="blog__content">

@@ -194,11 +194,13 @@ class ClientController extends Controller
             return redirect()->back()->with('error', 'Không có sản phẩm nào trong giỏ hàng');
         }
         foreach ($carts as $cart) {
+
             $data['name'] = $cart->products->namePro;
             $data['slug'] = $cart->products->slug;
             $data['price'] = ceil($cart->products->price - (($cart->products->price * $cart->products->discounts) / 100));
             $data['quantity'] = $cart->quantity;
             $data['order_id'] = $order->id;
+            $data['image'] = $cart->products->image ?? '';
             OrderDetail::create($data);
             $cart->delete();
         }

@@ -118,7 +118,7 @@ class ProductController extends Controller
                 'namePro' => 'required|unique:products,namePro,' . $Product->id,
                 'slug' => 'required|unique:products,slug,' . $Product->id,
                 'image' => 'mimes:jpg,bmp,png|max:2048',
-                'images.*' => 'mimes:jpg,bmp,png|max:2048', // Validate cho ảnh nhiều
+                'images.*' => 'max:2048', // Validate cho ảnh nhiều
                 'quantity' => 'required|numeric|min:0',
                 'price' => 'required|numeric|min:1',
                 'discounts' => 'required|numeric|min:0|max:100',

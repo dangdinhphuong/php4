@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->double('price');
             $table->integer('quantity');
+            $table->string('image')->default(null);
             $table->foreignId('order_id')->constrained('orders')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

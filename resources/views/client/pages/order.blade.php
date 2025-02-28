@@ -12,17 +12,17 @@
                             @foreach($Orders as $Order )
 
                                 @foreach($Order->order_detail as $orderDetail )
-
                                     <div class="col mb-30 "
                                          style=" background: var(--white-color); border-radius: 10px; -webkit-box-shadow: 0 7px 20px rgba(0, 0, 0, .16);  box-shadow: 0 7px 20px rgba(0, 0, 0, .16); padding: 2rem;">
                                         <i >{{ App\Common\Constants::STATUS_ORDER[$Order->status] }} </i>
                                         <hr>
                                         <div class="product__items product__list--items d-flex">
                                             <div class="product__items--thumbnail product__list--items__thumbnail"
-                                                 style="    width: 10%;">
+                                                 style="   ">
                                                 <a class="product__items--link" href="{{route('order_detail',['id'=>$Order->id])}}">
+
                                                     <img class="product__items--img product__primary--img"
-                                                         src="assets/img/product/product11.png" alt="product-img">
+                                                         src="{{asset('storage/' .$orderDetail->image)}}" alt="product-img">
                                                 </a>
                                             </div>
                                             <div class="product__list--items__content">
