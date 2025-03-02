@@ -43,9 +43,7 @@ class SliderController extends Controller
 
         // validator
         $rules = [
-            'caption' => 'required|min:4',
             'image' => 'required|mimetypes:image/jpeg,image/png|max:5048',
-            'desc' => 'required|min:4',
 
         ];
 

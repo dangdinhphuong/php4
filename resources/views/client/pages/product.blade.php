@@ -75,7 +75,8 @@
                     <div class="col">
                         <div class="product__details--info">
                             <form action="#">
-                                <h2 class="product__details--info__title mb-15">{{$product->namePro}}</h2>
+                       
+                                <h2 class="product__details--info__title mb-15">{{$Product->namePro}}</h2>
                                 <div class="product__details--info__price mb-10 p-2" style="background-color: var(--secondary-color);     border-radius: 5px;">
 
                                     @if($Product->discounts > 0)
