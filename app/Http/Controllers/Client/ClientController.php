@@ -34,10 +34,10 @@ class ClientController extends Controller
     {
 
         $blogs = Blogs::where('status', 1)->orderBy('id', 'DESC')->get();
-        $sliders = Slider::all();
+        $sliders = [];
         // dd($this->currency_format(15656262));
         $category = $this->categories;
-        return view('client.pages.home', compact('category', 'blogs','sliders'));
+        return view('client.pages.home', compact('category', 'blogs', 'sliders'));
     }
     public function products(Request $request)
     {
@@ -111,7 +111,7 @@ class ClientController extends Controller
     public function addCart(Request $request, $product_id)
     {
         $Product = Product::where('id', $product_id)->where('status', 1)->first();
-        if($Product->quantity <= 0){
+        if ($Product->quantity <= 0) {
             return response()->json([
                 'message' => "Sản phẩm hiện đã hết hàng",
                 'status' => "error"
