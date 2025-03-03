@@ -34,7 +34,7 @@ class ClientController extends Controller
     {
 
         $blogs = Blogs::where('status', 1)->orderBy('id', 'DESC')->get();
-        $sliders = [];
+        $sliders = Slider::all();
         // dd($this->currency_format(15656262));
         $category = $this->categories;
         return view('client.pages.home', compact('category', 'blogs', 'sliders'));
